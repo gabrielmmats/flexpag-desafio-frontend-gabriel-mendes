@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'flexpag-desafio-frontend-gabriel-mendes';
+  name = 'Gabriel';
 }
