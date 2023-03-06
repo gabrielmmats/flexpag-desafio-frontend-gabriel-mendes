@@ -10,13 +10,17 @@ import { HeaderComponent } from './components/header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormsModule, ReactiveFormsModule }    from '@angular/forms'; 
 import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from "@angular/material/form-field";
 import { SimulatorComponent } from './views/simulator/simulator.component';
+import { CarInfoComponent } from './components/car-info/car-info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SimulatorComponent
+    SimulatorComponent,
+    CarInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +30,8 @@ import { SimulatorComponent } from './views/simulator/simulator.component';
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatInputModule,
+    MatFormFieldModule,
     HttpClientModule
   ],
   providers: [],

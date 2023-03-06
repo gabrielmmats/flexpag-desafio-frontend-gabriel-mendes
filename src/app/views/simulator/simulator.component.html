@@ -1,12 +1,33 @@
-<h1>Simulador para venda de veículos</h1>
 <form [formGroup]="carForm" (ngSubmit)="onFormSubmit()">
-    <mat-label>Tipo de veículo</mat-label>
-    <mat-select formControlName="tipo" (selectionChange)="onSelectTipo($event)">
-        <mat-option *ngFor="let tipo of tiposDeVeiculo" [value] = "tipo">{{tipo.nome}}</mat-option>
-    </mat-select>
-    <mat-label>Marca</mat-label>
-    <mat-select formControlName="marca" (selectionChange)="onSelectMarca($event)">
-        <mat-option *ngFor="let marca of marcasDeVeiculo" [value] = "marca">{{marca.nome}}</mat-option>
-    </mat-select>
+    <mat-form-field appearance="outline">
+        <mat-label>Tipo de veículo</mat-label>
+        <mat-select formControlName="tipo" (selectionChange)="onSelectTipo($event)">
+            <mat-option *ngFor="let tipo of tiposDeVeiculo" [value] = "tipo">{{tipo.nome}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Marca</mat-label>
+        <mat-select formControlName="marca" (selectionChange)="onSelectMarca($event)">
+            <mat-option *ngFor="let marca of marcasDeVeiculo" [value] = "marca">{{marca.nome}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Modelo</mat-label>
+        <mat-select formControlName="modelo" (selectionChange)="onSelectModelo($event)">
+            <mat-option *ngFor="let modelo of modelosDeVeiculo" [value] = "modelo">{{modelo.nome}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Ano</mat-label>
+        <mat-select formControlName="ano">
+            <mat-option *ngFor="let ano of anosDeVeiculo" [value] = "ano">{{ano.nome}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Valor</mat-label>
+        <input matInput formControlName="valor">
+    </mat-form-field>
+    <br>
     <button>Consultar</button>    
 </form>
+<app-car-info [carInfo]="carInfo" [valorVeiculo]="valorVeiculo"></app-car-info>
