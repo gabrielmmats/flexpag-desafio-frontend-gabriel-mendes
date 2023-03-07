@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CarService } from 'src/app/core/services/car.service';
 import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { MatSelectChange } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ItemCode } from 'src/app/core/models/item-code';
 import { CarInfo } from 'src/app/core/models/car-info';
 
@@ -30,7 +30,7 @@ export class SimulatorComponent implements OnInit{
   valorVeiculo = '';
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder, private carService: CarService) {}
+  constructor(private formBuilder: FormBuilder, private carService: CarService, private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.tiposDeVeiculo = this.carService.getTipos();
@@ -66,33 +66,52 @@ export class SimulatorComponent implements OnInit{
 
   onSelectTipo() {
     this.clearMarcas();
-    this.carService.getMarcas(this.tipoValue).subscribe(data => {
-      this.marcasDeVeiculo = data;
-    });    
+    this.carService.getMarcas(this.tipoValue).subscribe({
+      next: data => {
+        this.marcasDeVeiculo = data;
+      },
+      error: err => {
+        this.showErrorMessage();
+      }
+    });
   }
 
   onSelectMarca() {
     this.clearModelos();
-    this.carService.getModelos(this.tipoValue, this.marcaValue).subscribe(data => {
-      this.modelosDeVeiculo = data;
-    });    
+    this.carService.getModelos(this.tipoValue, this.marcaValue).subscribe({
+      next: data => {
+        this.modelosDeVeiculo = data;
+      },
+      error: err => {
+        this.showErrorMessage();
+      }
+    });
   }
 
   onSelectModelo() {
     this.clearAnos();
-    this.carService.getAnos(this.tipoValue, this.marcaValue, this.modeloValue).subscribe(data => {
-      this.anosDeVeiculo = data;
+    this.carService.getAnos(this.tipoValue, this.marcaValue, this.modeloValue).subscribe({
+      next: data => {
+        this.anosDeVeiculo = data;
+      },
+      error: err => {
+        this.showErrorMessage();
+      }
     });
   }
 
   onFormSubmit() {
-    this.submitted = true; //comentar se a API de veiculos estiver funcionando
     this.carForm.markAllAsTouched();
     if(this.carForm.valid){
-      this.carService.getValor(this.tipoValue, this.marcaValue, this.modeloValue, this.anoValue).subscribe(data => {
-        this.carInfo = data;
-        this.valorVeiculo = this.valorValue.replace(',', '.');
-        this.submitted = true;
+      this.carService.getValor(this.tipoValue, this.marcaValue, this.modeloValue, this.anoValue).subscribe({
+        next: data => {
+          this.carInfo = data;
+          this.valorVeiculo = this.valorValue.replace(',', '.');
+          this.submitted = true;
+        },
+        error: err => {
+          this.showErrorMessage();
+        }
       });
     }
   }
@@ -112,6 +131,12 @@ export class SimulatorComponent implements OnInit{
   clearAnos() {
     this.carForm.get("ano")?.reset();
     this.anosDeVeiculo = [];
+  }
+
+  showErrorMessage() {
+    this.snackBar.open('Falha ao se conectar ao servidor','Fechar', {
+      duration: 510000,
+    });
   }
 
 }

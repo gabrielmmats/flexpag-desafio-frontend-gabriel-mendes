@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ItemCode } from '../models/item-code';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError, of } from 'rxjs';
+import { map, } from 'rxjs/operators';
 import { CarInfo } from '../models/car-info';
+import MockData from './car.service.mock';
 
 
 const tipos: ItemCode<string>[] = [
@@ -11,6 +12,9 @@ const tipos: ItemCode<string>[] = [
   { nome: "Moto", codigo: "motos" },
   { nome: "Caminhão", codigo: "caminhoes" }
 ];
+
+//setar para true se for utilizar dados mockados
+const mock = false;
 
 @Injectable({
   providedIn: 'root'
@@ -26,21 +30,32 @@ export class CarService {
   }
 
   getMarcas(codigoTipo: string): Observable<ItemCode<string>[]> {
+    if(mock) {
+      return of(MockData.MOCK_MARCAS_RESPONSE);
+    }
     return this.http.get<ItemCode<string>[]>(this.rootURL + codigoTipo + '/marcas');
   }
 
-  //aqui a API esta retornando {modelos: [], anos: []} ao inves de so o array de modelos
   getModelos(codigoTipo: string, codigoMarca: string): Observable<ItemCode<string>[]> {
+    if(mock) {
+      return of(MockData.MOCK_MODELOS_RESPONSE);
+    }
     return this.http.get<ItemCode<bigint>[]>(this.rootURL + codigoTipo + '/marcas/' + codigoMarca + '/modelos').pipe(map((data: any) => {
       return data.modelos.map( (item: ItemCode<bigint>) => ({nome: item.nome, codigo: String(item.codigo)}))
     }));
   }
 
   getAnos(codigoTipo: string, codigoMarca: string, codigoModelo: string): Observable<ItemCode<string>[]> {
+    if(mock) {
+      return of(MockData.MOCK_ANOS_RESPONSE);
+    }
     return this.http.get<ItemCode<string>[]>(this.rootURL + codigoTipo + '/marcas/' + codigoMarca + '/modelos/' + codigoModelo + '/anos');
   }
 
   getValor(codigoTipo: string, codigoMarca: string, codigoModelo: string, codigoAno: string): Observable<CarInfo> {
+    if(mock) {
+      return of(MockData.MOCK_VALOR_RESPONSE);
+    }
     return this.http.get<CarInfo>(this.rootURL + codigoTipo + '/marcas/' + codigoMarca + '/modelos/' + codigoModelo + '/anos/' + codigoAno);
   }
 }

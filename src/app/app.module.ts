@@ -15,6 +15,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatButtonModule} from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatTableModule } from "@angular/material/table";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { SimulatorComponent } from './views/simulator/simulator.component';
 import { CarInfoComponent } from './components/car-info/car-info.component';
 
@@ -38,6 +39,7 @@ import { CarInfoComponent } from './components/car-info/car-info.component';
     MatButtonModule,
     MatCardModule,
     MatTableModule,
+    MatSnackBarModule,
     HttpClientModule
   ],
   providers: [],

@@ -22,25 +22,8 @@ export class CarInfoComponent {
   message = {text: 'Valor de mercado', color: 'neutro', icon: "arrow_circle_down"};
   infoList = [{name: "", value: ""}];
   displayedColumns: string[] = ['name', 'value'];
-  
-
 
   ngOnChanges() {
-
-    //comentar se a API de veiculos estiver funcionando
-    this.carInfo = {
-      "Valor": "R$ 125.318,50",
-      "Marca": "VW - VolksWagen",
-      "Modelo": "AMAROK High.CD 2.0 16V TDI 4x4 Dies. Aut",
-      "AnoModelo": 2014n,
-      "Combustivel": "Diesel",
-      "CodigoFipe": "005340-6",
-      "MesReferencia": "janeiro de 2023 ",
-      "TipoVeiculo": 1n,
-      "SiglaCombustivel": "D"
-    }
-    this.valorVeiculo = "100055.334";
-
     this.setTable();
     this.setPercentage();
   }

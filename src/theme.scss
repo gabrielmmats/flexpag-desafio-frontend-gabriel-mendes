@@ -79,9 +79,14 @@ $my-theme: mat.define-light-theme((
  density: 0,
 ));
 
-
 @include mat.core-theme($my-theme);
 @include mat.button-theme($my-theme);
 @include mat.form-field-theme($my-theme);
+
+.mat-mdc-snack-bar-container {
+    --mat-mdc-snack-bar-button-color: #5B0000 !important;
+    --mdc-snackbar-container-color: #E3A6A6 !important;
+    --mdc-snackbar-supporting-text-color: black !important;
+}
 
 
