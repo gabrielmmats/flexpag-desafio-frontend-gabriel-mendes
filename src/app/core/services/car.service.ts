@@ -30,17 +30,17 @@ export class CarService {
   }
 
   //aqui a API esta retornando {modelos: [], anos: []} ao inves de so o array de modelos
-  getModelos(codigoTipo: string, codigoMarca: string): Observable<ItemCode<bigint>[]> {
+  getModelos(codigoTipo: string, codigoMarca: string): Observable<ItemCode<string>[]> {
     return this.http.get<ItemCode<bigint>[]>(this.rootURL + codigoTipo + '/marcas/' + codigoMarca + '/modelos').pipe(map((data: any) => {
-      return data.modelos
+      return data.modelos.map( (item: ItemCode<bigint>) => ({nome: item.nome, codigo: String(item.codigo)}))
     }));
   }
 
-  getAnos(codigoTipo: string, codigoMarca: string, codigoModelo: bigint): Observable<ItemCode<string>[]> {
+  getAnos(codigoTipo: string, codigoMarca: string, codigoModelo: string): Observable<ItemCode<string>[]> {
     return this.http.get<ItemCode<string>[]>(this.rootURL + codigoTipo + '/marcas/' + codigoMarca + '/modelos/' + codigoModelo + '/anos');
   }
 
-  getValor(codigoTipo: string, codigoMarca: string, codigoModelo: bigint, codigoAno: string): Observable<CarInfo> {
+  getValor(codigoTipo: string, codigoMarca: string, codigoModelo: string, codigoAno: string): Observable<CarInfo> {
     return this.http.get<CarInfo>(this.rootURL + codigoTipo + '/marcas/' + codigoMarca + '/modelos/' + codigoModelo + '/anos/' + codigoAno);
   }
 }

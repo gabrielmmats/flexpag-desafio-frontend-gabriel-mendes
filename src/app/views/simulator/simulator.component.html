@@ -1,28 +1,40 @@
-<form [formGroup]="carForm" (ngSubmit)="onFormSubmit()">
+<form [formGroup]="carForm">
     <div class="inputContainer">
-        <mat-form-field appearance="outline" color="primary" floatLabel="always" floatLabel="always" >
+        <mat-form-field name="selectTipo" appearance="outline" color="primary" floatLabel="always" floatLabel="always" >
             <mat-label>Tipo de veículo</mat-label>
-            <mat-select formControlName="tipo" (selectionChange)="onSelectTipo($event)">
-                <mat-option *ngFor="let tipo of tiposDeVeiculo" [value] = "tipo">{{tipo.nome}}</mat-option>
+            <mat-select formControlName="tipo" (selectionChange)="onSelectTipo()">
+                <mat-option *ngFor="let tipo of tiposDeVeiculo" [value] = "tipo.codigo">{{tipo.nome}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="carForm.controls.tipo.hasError('required')">
+                Campo obrigatório
+            </mat-error>
         </mat-form-field>
         <mat-form-field class="bigger" appearance="outline" color="primary" floatLabel="always" >
             <mat-label>Marca</mat-label>
-            <mat-select formControlName="marca" (selectionChange)="onSelectMarca($event)">
-                <mat-option *ngFor="let marca of marcasDeVeiculo" [value] = "marca">{{marca.nome}}</mat-option>
+            <mat-select formControlName="marca" (selectionChange)="onSelectMarca()">
+                <mat-option *ngFor="let marca of marcasDeVeiculo" [value] = "marca.codigo">{{marca.nome}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="carForm.controls.marca.hasError('required')">
+                Campo obrigatório
+            </mat-error>
         </mat-form-field>
         <mat-form-field class="bigger" appearance="outline" color="primary" floatLabel="always" >
             <mat-label>Modelo</mat-label>
-            <mat-select formControlName="modelo" (selectionChange)="onSelectModelo($event)">
-                <mat-option *ngFor="let modelo of modelosDeVeiculo" [value] = "modelo">{{modelo.nome}}</mat-option>
+            <mat-select formControlName="modelo" (selectionChange)="onSelectModelo()">
+                <mat-option *ngFor="let modelo of modelosDeVeiculo" [value] = "modelo.codigo">{{modelo.nome}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="carForm.controls.modelo.hasError('required')">
+                Campo obrigatório
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" color="primary" floatLabel="always" >
             <mat-label>Ano</mat-label>
             <mat-select formControlName="ano">
-                <mat-option *ngFor="let ano of anosDeVeiculo" [value] = "ano">{{ano.nome}}</mat-option>
+                <mat-option *ngFor="let ano of anosDeVeiculo" [value] = "ano.codigo">{{ano.nome}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="carForm.controls.ano.hasError('required')">
+                Campo obrigatório
+            </mat-error>
         </mat-form-field>
     </div>
     <div class="inputContainer">
@@ -30,8 +42,14 @@
             <mat-label>Valor</mat-label>
             <span matPrefix>&nbsp;R$&nbsp;</span>
             <input matInput formControlName="valor" placeholder="Ex. 1000,00">
+            <mat-error *ngIf="carForm.controls.valor.hasError('required')">
+                Campo obrigatório
+            </mat-error>
+            <mat-error *ngIf="carForm.controls.valor.hasError('nan')">
+                Insira um valor válido
+            </mat-error>
         </mat-form-field>
-        <button mat-flat-button color="primary">Consultar</button> 
+        <button type="button" mat-flat-button color="primary" (click)="onFormSubmit()">Consultar</button> 
     </div>      
 </form>
-<app-car-info [carInfo]="carInfo" [valorVeiculo]="valorVeiculo"></app-car-info>
+<app-car-info *ngIf="submitted" [carInfo]="carInfo" [valorVeiculo]="valorVeiculo"></app-car-info>

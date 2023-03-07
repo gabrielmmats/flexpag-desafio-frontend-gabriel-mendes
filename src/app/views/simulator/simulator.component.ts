@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CarService } from 'src/app/core/services/car.service';
-import { FormBuilder } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 import { ItemCode } from 'src/app/core/models/item-code';
 import { CarInfo } from 'src/app/core/models/car-info';
+
+function numberValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const notANumber = isNaN((control.value).replace(',', '.'));
+    return notANumber ? {nan: {value: control.value}} : null;
+  };
+}
 
 @Component({
   selector: 'app-simulator',
@@ -12,12 +19,16 @@ import { CarInfo } from 'src/app/core/models/car-info';
 })
 export class SimulatorComponent implements OnInit{
 
+  //listas de valores dos selectors
   tiposDeVeiculo: ItemCode<string>[] = [];
   marcasDeVeiculo: ItemCode<string>[] = [];
-  modelosDeVeiculo: ItemCode<bigint>[] = [];
+  modelosDeVeiculo: ItemCode<string>[] = [];
   anosDeVeiculo: ItemCode<string>[] = [];
+
+  //inputs do componente de informacao
   carInfo = {} as CarInfo;
   valorVeiculo = '';
+  submitted = false;
 
   constructor(private formBuilder: FormBuilder, private carService: CarService) {}
 
@@ -26,77 +37,79 @@ export class SimulatorComponent implements OnInit{
   }
   
   carForm = this.formBuilder.group({
-    tipo: [{nome: '', codigo: ''}],
-    marca: [{nome: '', codigo: ''}],
-    modelo: [{nome: '', codigo: 0n}],
-    ano: [{nome: '', codigo: ''}],
-    valor: ['']
+    tipo: ['', [Validators.required]],
+    marca: ['', [Validators.required]],
+    modelo: ['', [Validators.required]],
+    ano: ['', [Validators.required]],
+    valor: ['', [Validators.required, numberValidator()]]
   });
 
-  get tipo() { 
-    return this.carForm.value.tipo?.codigo || '';
+  get tipoValue() { 
+    return this.carForm.value.tipo || '';
   }
 
-  get marca() { 
-    return this.carForm.value.marca?.codigo || '';
+  get marcaValue() { 
+    return this.carForm.value.marca || '';
   }
 
-  get modelo() {
-    return this.carForm.value.modelo?.codigo || 0n;
+  get modeloValue() {
+    return this.carForm.value.modelo || '';
   }
 
-  get ano() {
-    return this.carForm.value.ano?.codigo || '';
+  get anoValue() {
+    return this.carForm.value.ano || '';
   }
 
-  get valor() {
+  get valorValue() {
     return this.carForm.value.valor || '';
   }
 
-  onSelectTipo(ob: MatSelectChange) {
+  onSelectTipo() {
     this.clearMarcas();
-    this.carService.getMarcas(ob.value.codigo).subscribe(data => {
+    this.carService.getMarcas(this.tipoValue).subscribe(data => {
       this.marcasDeVeiculo = data;
     });    
   }
 
-  onSelectMarca(ob: MatSelectChange) {
+  onSelectMarca() {
     this.clearModelos();
-    this.carService.getModelos(this.tipo, ob.value.codigo).subscribe(data => {
+    this.carService.getModelos(this.tipoValue, this.marcaValue).subscribe(data => {
       this.modelosDeVeiculo = data;
     });    
   }
 
-  onSelectModelo(ob: MatSelectChange) {
+  onSelectModelo() {
     this.clearAnos();
-    this.carService.getAnos(this.tipo, this.marca, ob.value.codigo).subscribe(data => {
+    this.carService.getAnos(this.tipoValue, this.marcaValue, this.modeloValue).subscribe(data => {
       this.anosDeVeiculo = data;
     });
   }
 
   onFormSubmit() {
-    this.carService.getValor(this.tipo, this.marca, this.modelo, this.ano).subscribe(data => {
-      this.carInfo = data;
-      this.valorVeiculo = this.valor;
-    });
-  }
-
-  resetForm() {
-    this.clearMarcas();
-    this.carForm.reset();
+    this.carForm.markAllAsTouched();
+    if(this.carForm.valid){
+      this.carService.getValor(this.tipoValue, this.marcaValue, this.modeloValue, this.anoValue).subscribe(data => {
+        this.carInfo = data;
+        this.valorVeiculo = this.valorValue.replace(',', '.');
+        this.submitted = true;
+      });
+    }
   }
 
   clearMarcas() {
+    this.carForm.get("marca")?.reset();
     this.marcasDeVeiculo = [];
-    this.clearModelos();
+    this.clearModelos(); 
   }
 
   clearModelos() {
+    this.carForm.get("modelo")?.reset();
     this.modelosDeVeiculo = [];
     this.clearAnos();
   }
 
   clearAnos() {
+    this.carForm.get("ano")?.reset();
     this.anosDeVeiculo = [];
   }
 
