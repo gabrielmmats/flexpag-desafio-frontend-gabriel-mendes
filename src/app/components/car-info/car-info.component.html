@@ -1,9 +1,28 @@
-<p>Marca: {{carInfo.Marca}}</p>
-<p>Modelo: {{carInfo.Modelo}}</p>
-<p>Ano do Modelo: {{carInfo.AnoModelo}}</p>
-<p>Código FIPE: {{carInfo.CodigoFipe}}</p>
-<p>Mês Referência: {{carInfo.MesReferencia}}</p>
-<p>Valor do veículo: {{valorVeiculo}}</p>
-<p>Valor pela FIPE: {{carInfo.Valor}}</p>
-<p>{{percentual}} {{mensagem.texto}}</p>
+<div class="flex-container">
+    <div class="flex-item">
+        <table mat-table [dataSource]="infoList" class="mat-elevation-z2">
+            <ng-container matColumnDef="name">
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>          
+            <ng-container matColumnDef="value">
+              <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+            </ng-container>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>           
+    <div class="flex-item result-panel">
+        <div>
+            <div [ngClass]="message.color" class="result-content">
+                <i class="material-icons">{{message.icon}}</i>
+                {{percentual}}
+            </div>
+            <mat-card [ngClass]="message.color">
+                <mat-card-title [ngClass]="message.color">
+                    {{message.text}}
+                </mat-card-title>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
 

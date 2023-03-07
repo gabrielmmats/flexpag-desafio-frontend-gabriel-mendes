@@ -1,33 +1,37 @@
 <form [formGroup]="carForm" (ngSubmit)="onFormSubmit()">
-    <mat-form-field appearance="outline">
-        <mat-label>Tipo de veículo</mat-label>
-        <mat-select formControlName="tipo" (selectionChange)="onSelectTipo($event)">
-            <mat-option *ngFor="let tipo of tiposDeVeiculo" [value] = "tipo">{{tipo.nome}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Marca</mat-label>
-        <mat-select formControlName="marca" (selectionChange)="onSelectMarca($event)">
-            <mat-option *ngFor="let marca of marcasDeVeiculo" [value] = "marca">{{marca.nome}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Modelo</mat-label>
-        <mat-select formControlName="modelo" (selectionChange)="onSelectModelo($event)">
-            <mat-option *ngFor="let modelo of modelosDeVeiculo" [value] = "modelo">{{modelo.nome}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Ano</mat-label>
-        <mat-select formControlName="ano">
-            <mat-option *ngFor="let ano of anosDeVeiculo" [value] = "ano">{{ano.nome}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-        <mat-label>Valor</mat-label>
-        <input matInput formControlName="valor">
-    </mat-form-field>
-    <br>
-    <button>Consultar</button>    
+    <div class="inputContainer">
+        <mat-form-field appearance="outline" color="primary" floatLabel="always" floatLabel="always" >
+            <mat-label>Tipo de veículo</mat-label>
+            <mat-select formControlName="tipo" (selectionChange)="onSelectTipo($event)">
+                <mat-option *ngFor="let tipo of tiposDeVeiculo" [value] = "tipo">{{tipo.nome}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="bigger" appearance="outline" color="primary" floatLabel="always" >
+            <mat-label>Marca</mat-label>
+            <mat-select formControlName="marca" (selectionChange)="onSelectMarca($event)">
+                <mat-option *ngFor="let marca of marcasDeVeiculo" [value] = "marca">{{marca.nome}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="bigger" appearance="outline" color="primary" floatLabel="always" >
+            <mat-label>Modelo</mat-label>
+            <mat-select formControlName="modelo" (selectionChange)="onSelectModelo($event)">
+                <mat-option *ngFor="let modelo of modelosDeVeiculo" [value] = "modelo">{{modelo.nome}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" color="primary" floatLabel="always" >
+            <mat-label>Ano</mat-label>
+            <mat-select formControlName="ano">
+                <mat-option *ngFor="let ano of anosDeVeiculo" [value] = "ano">{{ano.nome}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="inputContainer">
+        <mat-form-field appearance="outline" color="primary" floatLabel="always" >
+            <mat-label>Valor</mat-label>
+            <span matPrefix>&nbsp;R$&nbsp;</span>
+            <input matInput formControlName="valor" placeholder="Ex. 1000,00">
+        </mat-form-field>
+        <button mat-flat-button color="primary">Consultar</button> 
+    </div>      
 </form>
 <app-car-info [carInfo]="carInfo" [valorVeiculo]="valorVeiculo"></app-car-info>

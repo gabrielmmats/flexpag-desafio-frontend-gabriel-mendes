@@ -1,0 +1,90 @@
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flex-item {
+    flex-grow: 1;
+}
+
+.result-panel {    
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.result-content {
+    display: flex;
+    align-items: center;
+    font-size: 5rem;
+    color: green;
+}
+
+.result-content i {
+    padding-right: 5px;
+    font-size: 5rem;
+}
+
+.result-panel mat-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.result-panel mat-card-title {
+    color: #003400;
+    font-weight: 400;
+}
+
+table {
+    background-color: #e4e7ea;
+}
+
+td {
+    font-size: 1.3rem;
+    font-weight: 300;
+    border: none;
+}
+
+.result-panel mat-card.neutro {
+    background-color: rgb(194 200 255);
+}
+
+.result-panel mat-card.positivo {
+    background-color: rgb(149, 209, 149);
+}
+
+.result-panel mat-card.negativo {
+    background-color: rgb(211 129 115)
+}
+
+.result-panel mat-card-title.neutro {
+    color: rgb(0, 40, 99);
+}
+
+.result-panel mat-card-title.positivo {
+    color: rgb(0, 65, 0);
+}
+
+.result-panel mat-card-title.negativo {
+    color: rgb(102 16 0);
+}
+
+.result-content.neutro {
+    color: rgb(0, 0, 71);
+}
+
+.result-content.positivo {
+    color: green;
+}
+
+.result-content.negativo {
+    color: rgb(151, 0, 0);
+}
+
+
+

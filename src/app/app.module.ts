@@ -12,6 +12,9 @@ import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatButtonModule} from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatTableModule } from "@angular/material/table";
 import { SimulatorComponent } from './views/simulator/simulator.component';
 import { CarInfoComponent } from './components/car-info/car-info.component';
 
@@ -32,6 +35,9 @@ import { CarInfoComponent } from './components/car-info/car-info.component';
     MatSelectModule,
     MatInputModule,
     MatFormFieldModule,
+    MatButtonModule,
+    MatCardModule,
+    MatTableModule,
     HttpClientModule
   ],
   providers: [],
