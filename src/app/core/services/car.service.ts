@@ -7,15 +7,17 @@ import { CarInfo } from '../models/car-info';
 import MockData from './car.service.mock';
 
 
+//setar para true se for utilizar dados mockados
+const mock = false;
+
 const tipos: ItemCode<string>[] = [
   { nome: "Carro", codigo: "carros" },
   { nome: "Moto", codigo: "motos" },
   { nome: "Caminhão", codigo: "caminhoes" }
 ];
 
-//setar para true se for utilizar dados mockados
-const mock = false;
 
+//servico responsavel por conectar-se ao servidor atraves de um cliente HTTP e buscar os valores de cada requisicao, retornando um objeto observavel
 @Injectable({
   providedIn: 'root'
 })

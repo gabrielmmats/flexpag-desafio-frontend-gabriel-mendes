@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CarInfo } from 'src/app/core/models/car-info';
 
+//funcao auxiliar que deixa a primeira letra de uma string em maiusculo
 const capitalizeFirstLetter = (str: string) => {
   if (str)
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -8,6 +9,7 @@ const capitalizeFirstLetter = (str: string) => {
     return "";
 }
 
+//componente responsavel por exibir o resultado da busca
 @Component({
   selector: 'app-car-info',
   templateUrl: './car-info.component.html',
@@ -15,19 +17,23 @@ const capitalizeFirstLetter = (str: string) => {
 })
 export class CarInfoComponent {
 
+  //variaveis de entrada que guardam as informacoes recebidas pelo servidor e o valor inserido pelo usuario
   @Input() carInfo = {} as CarInfo;
   @Input() valorVeiculo = '';
 
+  //variaveis que guardam as informacoes em formatos adequados para serem exibidas nos componentes
   percentual = '';
   message = {text: 'Valor de mercado', color: 'neutro', icon: "arrow_circle_down"};
   infoList = [{name: "", value: ""}];
   displayedColumns: string[] = ['name', 'value'];
 
+  //atualiza as variaveis de exibicao de acordo com as variaveis de entrada quando ha uma mudanca
   ngOnChanges() {
     this.setTable();
     this.setPercentage();
   }
 
+  //atualiza a tabela populando cada item e transformando alguns valores para melhores formatos de exibicao
   setTable() {
     const anoModelo = String(this.carInfo.AnoModelo || "");
     const valor = "R$ " + Number(this.valorVeiculo).toLocaleString(['pt-BR'], { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -43,6 +49,7 @@ export class CarInfoComponent {
     ];
   }
 
+  //calcula a diferenca percentual entre o valor do input e o da tabela FIP e atualiza o componente de acordo com o resultado
   setPercentage() {
     let VVD = parseFloat(this.valorVeiculo);
     let VVF = parseFloat((this.carInfo.Valor || '0').replace('R$', '').replace('.', '').replace(',', '.'));
