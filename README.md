@@ -1,6 +1,6 @@
-# Desafio Flexpag - Back end
+# Desafio Flexpag - Front end
 
-Back end desenvolvido em Angular 15.
+Front end desenvolvido em Angular 15.
 
 Para habilitar dados mockados, setar a chave [_useMockData_](https://github.com/gabrielmmats/flexpag-desafio-frontend-gabriel-mendes/blob/main/src/app/core/services/config.json) para _true_.
 
