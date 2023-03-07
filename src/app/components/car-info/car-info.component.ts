@@ -38,7 +38,7 @@ export class CarInfoComponent {
       "SiglaCombustivel": "D"
   }
     this.valorVeiculo = "100055.334";
-    
+
     this.setTable();
     this.setPercentage();
   }
@@ -55,7 +55,7 @@ export class CarInfoComponent {
       { name: "Mês Referência:", value: referencia },
       { name: "Valor do veículo:", value: valor },
       { name: "Valor pela FIPE:", value: this.carInfo.Valor}
-    ]
+    ];
   }
 
   setPercentage() {
