@@ -4,11 +4,11 @@ import { ItemCode } from '../models/item-code';
 import { Observable, throwError, of } from 'rxjs';
 import { map, } from 'rxjs/operators';
 import { CarInfo } from '../models/car-info';
+import config from './config.json';
 import MockData from './car.service.mock';
 
 
-//setar para true se for utilizar dados mockados
-const mock = false;
+const mock = config.useMockData;
 
 const tipos: ItemCode<string>[] = [
   { nome: "Carro", codigo: "carros" },
@@ -25,7 +25,7 @@ export class CarService {
 
   constructor(private http: HttpClient) { }
 
-  rootURL = 'https://parallelum.com.br/fipe/api/v1/';
+  rootURL = config.apiURL;
 
   getTipos() {
     return tipos;
