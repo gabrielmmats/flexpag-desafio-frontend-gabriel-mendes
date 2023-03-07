@@ -26,6 +26,8 @@ export class CarInfoComponent {
 
 
   ngOnChanges() {
+
+    //comentar se a API de veiculos estiver funcionando
     this.carInfo = {
       "Valor": "R$ 125.318,50",
       "Marca": "VW - VolksWagen",
@@ -36,7 +38,7 @@ export class CarInfoComponent {
       "MesReferencia": "janeiro de 2023 ",
       "TipoVeiculo": 1n,
       "SiglaCombustivel": "D"
-  }
+    }
     this.valorVeiculo = "100055.334";
 
     this.setTable();

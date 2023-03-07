@@ -86,6 +86,7 @@ export class SimulatorComponent implements OnInit{
   }
 
   onFormSubmit() {
+    this.submitted = true; //comentar se a API de veiculos estiver funcionando
     this.carForm.markAllAsTouched();
     if(this.carForm.valid){
       this.carService.getValor(this.tipoValue, this.marcaValue, this.modeloValue, this.anoValue).subscribe(data => {

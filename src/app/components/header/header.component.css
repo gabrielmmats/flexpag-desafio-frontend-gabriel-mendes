@@ -21,3 +21,17 @@
 .header .title-group i {
     padding-right: 5px;
 }
+
+@media screen and (max-width: 540px) {
+
+    .header .title-group {
+        padding-left: 15px;
+    }
+    .title-group {
+        font-size: 0.8rem;
+    }
+
+    .header .title-group i {
+        font-size: 0.8rem;
+    }
+}

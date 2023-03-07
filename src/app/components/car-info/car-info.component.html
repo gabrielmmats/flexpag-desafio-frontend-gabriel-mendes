@@ -1,4 +1,4 @@
-<div class="flex-container">
+<div class="container">
     <div class="flex-item">
         <table mat-table [dataSource]="infoList" class="mat-elevation-z2">
             <ng-container matColumnDef="name">
@@ -11,17 +11,15 @@
         </table>
     </div>           
     <div class="flex-item result-panel">
-        <div>
-            <div [ngClass]="message.color" class="result-content">
-                <i class="material-icons">{{message.icon}}</i>
-                {{percentual}}
-            </div>
-            <mat-card [ngClass]="message.color">
-                <mat-card-title [ngClass]="message.color">
-                    {{message.text}}
-                </mat-card-title>
-            </mat-card>
+        <div [ngClass]="message.color" class="result-percent">
+            <i class="material-icons">{{message.icon}}</i>
+            {{percentual}}
         </div>
+        <mat-card [ngClass]="message.color">
+            <mat-card-title [ngClass]="message.color">
+                {{message.text}}
+            </mat-card-title>
+        </mat-card>
     </div>
 </div>
 
